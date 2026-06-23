@@ -1,0 +1,125 @@
+@import "variables";
+
+.custom-footer {
+  background-color: $footer-bg;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  margin-top: auto;
+  
+  .footer-top {
+    .footer-brand-col {
+      .footer-logo {
+        width: 140px;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      p {
+        color: #adb5bd !important;
+        font-size: 0.95rem;
+      }
+    }
+
+    .footer-title {
+      color: #fff;
+      font-size: 1.25rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--bs-primary);
+        border-radius: 2px;
+      }
+    }
+
+    .footer-links {
+      li {
+        a {
+          color: #adb5bd;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: all 0.2s ease-in-out;
+          display: inline-block;
+          
+          &:hover {
+            color: var(--bs-primary);
+            transform: translateX(5px);
+          }
+        }
+      }
+    }
+
+    .social-icons {
+      a {
+        color: #adb5bd;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          color: var(--bs-primary);
+          transform: translateY(-3px);
+        }
+      }
+    }
+
+    .payment-icons {
+      i {
+        color: #adb5bd;
+        transition: color 0.3s ease;
+        
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    background-color: darken($footer-bg, 3%);
+    
+    p {
+      color: #6c757d !important;
+      font-size: 0.9rem;
+    }
+
+    .hover-orange {
+      transition: color 0.2s ease;
+      &:hover {
+        color: var(--bs-primary) !important;
+      }
+    }
+  }
+}
+
+// Media query for smaller screens
+@media (max-width: 991px) {
+  .custom-footer {
+    .footer-title::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .footer-links li a:hover {
+      transform: none; // Disable sliding effect on mobile for centered layout
+    }
+
+    .social-icons, .payment-icons {
+      justify-content: center;
+    }
+    
+    .footer-title, .footer-brand-col {
+      text-align: center;
+    }
+
+    .footer-brand-col img {
+      margin: 0 auto;
+    }
+  }
+}

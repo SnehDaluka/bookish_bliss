@@ -1,0 +1,157 @@
+@import "variables";
+@import "mixin";
+
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@700&family=Nunito&family=Raleway:ital,wght@0,200;0,300;1,200;1,300&family=Work+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@700&family=Marck+Script&family=Merienda&family=Nunito&family=Raleway:ital,wght@0,200;0,300;1,200;1,300&family=Work+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@700&family=Marck+Script&family=Merienda&family=Nunito&family=Raleway:ital,wght@0,200;0,300;1,200;1,300&family=Work+Sans&display=swap");
+//Navbar
+@import "navbar";
+//Home
+@import "home";
+//Footer
+@import "footer";
+//Cart
+@import "cart";
+//Card
+@import "card";
+
+@import "books";
+
+@import "category-list";
+
+@import "login";
+
+@import "registration";
+
+@import "cart";
+
+@import './books-cart';
+@import './contact';
+@import './orders';
+@import './single-order';
+@import "./datepicker";
+
+@import "variables";
+@import "mixin";
+
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@700&family=Nunito&family=Raleway:ital,wght@0,200;0,300;1,200;1,300&family=Work+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@700&family=Marck+Script&family=Merienda&family=Nunito&family=Raleway:ital,wght@0,200;0,300;1,200;1,300&family=Work+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script:wght@700&family=Marck+Script&family=Merienda&family=Nunito&family=Raleway:ital,wght@0,200;0,300;1,200;1,300&family=Work+Sans&display=swap");
+//Navbar
+@import "navbar";
+//Home
+@import "home";
+//Footer
+@import "footer";
+//Cart
+@import "cart";
+//Card
+@import "card";
+
+@import "books";
+
+@import "category-list";
+
+@import "login";
+
+@import "registration";
+
+@import "cart";
+
+@import './books-cart';
+@import './contact';
+@import './orders';
+@import './single-order';
+@import "./datepicker";
+
+@import "profile";
+
+@import "bookdetails";
+
+@import "books-cart";
+
+@import "order-placed";
+
+// Global Theme Overrides
+:root {
+  --bs-primary: #ff6200;
+  --bs-primary-rgb: 255, 98, 0;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.border-primary {
+  border-color: var(--bs-primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  color: #fff !important;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    background-color: #e65c00 !important;
+    border-color: #e65c00 !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.5) !important;
+  }
+}
+
+.btn-outline-primary {
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.5) !important;
+  }
+}
+
+.spinner-border.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+// Global Links
+a,
+.btn-link {
+  color: var(--bs-primary);
+  text-decoration: none;
+
+  &:hover {
+    color: #e65c00;
+  }
+}
+
+// Global Input Focus Rings
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: #ff9d5c !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25) !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+// Global Dropdown Active State
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--bs-primary) !important;
+  color: #fff !important;
+}

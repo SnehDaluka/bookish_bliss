@@ -1,0 +1,325 @@
+.book-details-page {
+  padding: 3rem 1rem;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 80px);
+
+  .book-image-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    position: sticky;
+    top: 160px; /* Adjusted to stick below the two-row navbar */
+
+    img {
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+
+  .book-info {
+    padding-left: 2rem;
+
+    @media (max-width: 991px) {
+      padding-left: 0;
+      margin-top: 2rem;
+    }
+
+    .badges {
+      margin-bottom: 1rem;
+      .badge {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 50px;
+        margin-right: 0.5rem;
+      }
+    }
+
+    h1 {
+      font-weight: 800;
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-transform: capitalize;
+    }
+
+    .author-name {
+      font-size: 1.1rem;
+      color: #7f8c8d;
+      margin-bottom: 1rem;
+    }
+
+    .rating-stars {
+      color: #f39c12;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      .rating-value {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-left: 0.5rem;
+      }
+    }
+
+    .action-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #eaeaea;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      margin-bottom: 2.5rem;
+      max-width: 550px;
+
+      .price-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+
+        .current-price {
+          font-size: 2rem;
+          font-weight: 800;
+          color: #2c3e50;
+          margin-bottom: 0.2rem;
+          line-height: 1;
+        }
+
+        .mrp-section {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .original-price {
+            font-size: 1rem;
+            color: #95a5a6;
+            text-decoration: line-through;
+          }
+
+          .discount-text {
+            color: #27ae60;
+            font-weight: 700;
+            font-size: 0.95rem;
+          }
+        }
+      }
+
+      .cart-management {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        .btn-remove {
+          color: #e74c3c;
+          background: transparent;
+          border: none;
+          font-weight: 600;
+          padding: 0.5rem;
+          transition: opacity 0.2s;
+
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+
+      .btn-add-cart, .btn-buy-now {
+        padding: 1rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        transition: all 0.2s;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .btn-add-cart {
+        background-color: #2c3e50;
+        border: none;
+        color: white;
+
+        &:hover {
+          background-color: #1a252f;
+          transform: translateY(-2px);
+        }
+        
+        &:disabled {
+          background-color: #95a5a6;
+          transform: none;
+        }
+      }
+
+      .btn-buy-now {
+        background-color: #ff6200;
+        border: none;
+        color: white;
+
+        &:hover {
+          background-color: #e65800;
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    .details-tabs {
+      .nav-tabs {
+        border-bottom: 2px solid #eaeaea;
+        margin-bottom: 1.5rem;
+
+        .nav-link {
+          border: none;
+          color: #7f8c8d;
+          font-weight: 600;
+          font-size: 1.1rem;
+          padding: 1rem 1.5rem;
+          background: transparent;
+          border-bottom: 3px solid transparent;
+          transition: all 0.2s;
+
+          &:hover {
+            color: #2c3e50;
+          }
+
+          &.active {
+            color: #2c3e50;
+            border-bottom: 3px solid #ff6200;
+            background: transparent;
+          }
+        }
+      }
+
+      .tab-content {
+        .tab-pane {
+          padding: 1rem 0;
+          
+          p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  /* Ratings Breakdown Section */
+  .ratings-breakdown-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #eaeaea;
+
+    .ratings-container {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+      }
+
+      .ratings-left {
+        flex: 0 0 auto;
+        padding-right: 3rem;
+        border-right: 1px solid #eaeaea;
+
+        @media (max-width: 768px) {
+          border-right: none;
+          border-bottom: 1px solid #eaeaea;
+          padding-right: 0;
+          padding-bottom: 1.5rem;
+          width: 100%;
+        }
+
+        .average-rating {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 0.5rem;
+
+          .avg-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #2c3e50;
+            line-height: 1;
+          }
+
+          .avg-star {
+            font-size: 1.8rem;
+            color: #f39c12; /* Orange */
+            margin-top: 0.2rem;
+          }
+        }
+
+        .verified-buyers {
+          font-size: 1.05rem;
+          color: #7f8c8d;
+          margin: 0;
+        }
+      }
+
+      .ratings-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        max-width: 400px;
+
+        .rating-bar-row {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          .star-label {
+            font-size: 1.1rem;
+            color: #95a5a6;
+            font-weight: 600;
+            width: 40px;
+            text-align: right;
+
+            i {
+              font-size: 0.85rem;
+            }
+          }
+
+          .progress-bar-container {
+            flex: 1;
+            height: 6px;
+            background-color: #f1f2f6;
+            border-radius: 10px;
+            overflow: hidden;
+
+            .progress-bar-fill {
+              height: 100%;
+              border-radius: 10px;
+              background-color: #f39c12; /* Orange */
+            }
+          }
+
+          .star-count {
+            font-size: 1rem;
+            color: #2c3e50;
+            width: 45px;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}

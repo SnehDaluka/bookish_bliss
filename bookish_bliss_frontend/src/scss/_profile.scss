@@ -1,0 +1,237 @@
+.profile-dashboard {
+  min-height: calc(100vh - 60px); // Assuming navbar is ~60px
+  background-color: #f4f6f8;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  // Bookish Bliss Orange Overrides
+  .btn-primary {
+    background-color: #ff6200;
+    border-color: #ff6200;
+    color: #fff;
+    &:hover {
+      background-color: #e65c00;
+      border-color: #e65c00;
+    }
+  }
+
+  .bg-primary {
+    background-color: #ff6200 !important;
+  }
+
+  .text-primary {
+    color: #ff6200 !important;
+  }
+
+  .border-primary {
+    border-color: #ff6200 !important;
+  }
+
+  .form-check-input:checked {
+    background-color: #ff6200;
+    border-color: #ff6200;
+  }
+
+  .form-check-input:focus {
+    border-color: #ff9d5c;
+    box-shadow: 0 0 0 0.25rem rgba(255, 98, 0, 0.25);
+  }
+
+  .dashboard-sidebar {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 2rem 1rem;
+    position: sticky;
+    top: 80px;
+
+    .sidebar-avatar {
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1.5rem;
+
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+      }
+
+      h4 {
+        margin: 0;
+        font-weight: 700;
+        color: #2d3436;
+      }
+      p {
+        margin: 0;
+        color: #636e72;
+        font-size: 0.9rem;
+      }
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+
+      button {
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: none;
+        padding: 0.8rem 1.2rem;
+        border-radius: 8px;
+        color: #636e72;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+
+        i {
+          width: 24px;
+          margin-right: 10px;
+          font-size: 1.1rem;
+        }
+
+        &:hover {
+          background: #fff0e6;
+          color: #ff6200;
+        }
+
+        &.active {
+          background: rgba(255, 98, 0, 0.1);
+          color: #ff6200;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .dashboard-content {
+    .content-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 2.5rem;
+
+      .card-header {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        background: transparent;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+
+        h2 {
+          margin: 0;
+          font-weight: 700;
+          color: #2d3436;
+          font-size: 1.8rem;
+        }
+      }
+
+      .profile-details {
+        .detail-row {
+          display: flex;
+          padding: 1rem 0;
+          border-bottom: 1px solid #f8f9fa;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .detail-label {
+            width: 200px;
+            color: #636e72;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            i {
+              width: 24px;
+              color: #b2bec3;
+            }
+          }
+
+          .detail-value {
+            color: #2d3436;
+            font-weight: 600;
+            flex: 1;
+            word-break: break-word;
+          }
+        }
+      }
+
+      /* Form Styles */
+      form {
+        .form-label {
+          font-weight: 600;
+          color: #2d3436;
+          margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+          border-radius: 8px;
+          border: 1px solid #dfe6e9;
+          padding: 0.75rem 1rem;
+          background: #f8f9fa;
+          transition: all 0.3s ease;
+
+          &:focus {
+            background: #fff;
+            border-color: #ff9d5c;
+            box-shadow: 0 0 0 3px rgba(255, 98, 0, 0.2);
+          }
+        }
+        
+        .custom-dropdown-menu {
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          border-radius: 12px;
+          padding: 0.5rem 0;
+          margin-top: 0.5rem;
+
+          .dropdown-item {
+            padding: 0.7rem 1.5rem;
+            font-weight: 500;
+            color: #2d3436;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background-color: rgba(255, 98, 0, 0.08);
+              color: #ff6200;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .profile-dashboard {
+    .dashboard-sidebar {
+      position: static;
+      margin-bottom: 2rem;
+      
+      .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        
+        li {
+          margin-bottom: 0;
+          margin-right: 0.5rem;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

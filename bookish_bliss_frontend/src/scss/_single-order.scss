@@ -1,0 +1,51 @@
+.single-order-page {
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 80px);
+
+  .back-link {
+    color: #7f8c8d;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #2c3e50;
+    }
+  }
+
+  .order-details-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    background: white;
+
+    .card-header {
+      background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+      border-bottom: none;
+
+      h2 {
+        font-weight: 800;
+        font-size: 1.8rem;
+      }
+
+      .status-badge {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+    }
+
+    .order-item {
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #fcfcfc;
+      }
+    }
+  }
+
+  .order-summary-sidebar {
+    position: sticky;
+    top: 2rem;
+  }
+}

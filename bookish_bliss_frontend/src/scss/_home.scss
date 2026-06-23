@@ -1,0 +1,69 @@
+@import "variables";
+
+.home-page {
+  font-family: 'Nunito', sans-serif;
+  background-color: #fff;
+
+  .hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #fff9f5 0%, #fff 100%);
+    position: relative;
+    overflow: hidden;
+
+    .hero-img {
+      max-height: 600px;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  .trust-bar {
+    .trust-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+      }
+    }
+  }
+
+  .featured-books {
+    background: #fff;
+
+    .card {
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+    }
+  }
+
+  .story-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 991px) {
+  .home-page {
+    .hero-section {
+      min-height: auto;
+      text-align: center;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+
+      .hero-buttons {
+        justify-content: center;
+      }
+    }
+
+    .story-section {
+      text-align: center;
+    }
+  }
+}

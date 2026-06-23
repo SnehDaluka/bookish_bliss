@@ -1,0 +1,61 @@
+@mixin flex-prop($var1, $var2, $var3) {
+  display: flex;
+  align-items: $var1;
+  justify-content: $var2;
+  flex-direction: $var3;
+}
+
+@mixin button-prop {
+  button {
+    border-radius: 2em;
+    padding: 0.5em 2em;
+    .button {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+
+      font-size: 1.15em;
+      letter-spacing: 0.1rem;
+    }
+  }
+}
+
+@mixin bg-image-prop($val1) {
+  background-image: url($val1);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin h2-p-prop {
+  h2 {
+    font-family: "Courgette", cursive;
+    font-size: 3em;
+  }
+  p {
+    font-family: "Merienda", cursive;
+    font-size: 1rem;
+  }
+}
+
+@mixin button-prop2 {
+  border-radius: 0.3em;
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9em;
+  letter-spacing: 0.1rem;
+}
+
+@mixin h2-p-prop2 {
+  h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.75em;
+    border-bottom: 1px solid $border-color;
+  }
+  p {
+    font-size: 1.1rem;
+  }
+}

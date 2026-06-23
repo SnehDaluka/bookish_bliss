@@ -1,0 +1,62 @@
+.brand-logo {
+  width: 12em;
+}
+
+#search-books {
+  width: 40%;
+}
+
+#search-books input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
+  border: 2px solid black;
+  border-right: 0;
+}
+
+#search-books button {
+  border-top-right-radius: 2em;
+  border-bottom-right-radius: 2em;
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+  border-left: 0;
+  padding: 0 1rem;
+}
+
+.nav_options li .nav-link {
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  font-size: 1.3em;
+  color: black;
+}
+
+.active {
+  color: rgb(255, 115, 0) !important;
+  border-bottom: 2px solid black;
+  background-color: #f5f3f3;
+}
+
+.main_heading {
+  display: flex;
+}
+
+@media(min-width:1200px) {
+  #search-books {
+    width: 50%;
+  }
+}
+
+@media(max-width:992px) {
+  .brand-logo {
+    width: 10em;
+  }
+
+  #search-books {
+    width: 100%;
+  }
+
+}
+
+@media(max-width:768px) {}

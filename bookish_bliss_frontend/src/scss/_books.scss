@@ -1,0 +1,54 @@
+.books-heading {
+  div {
+    @include flex-prop(center, flex-start, row);
+    img {
+      height: 3em;
+    }
+    h1 {
+      font-family: "Courgette", cursive;
+      font-size: 4em;
+      margin: 0;
+    }
+  }
+}
+.books-heading2 {
+  border-bottom: 1px solid grey;
+  h2 {
+    font-family: "Merienda", cursive;
+    padding-left: 0.5em;
+    text-transform: capitalize;
+    font-size: 1.5em;
+  }
+}
+.books-category {
+  .booklist {
+    border-right: 1px solid $border-color;
+  }
+  .books-list {
+    min-height: 60vh;
+  }
+}
+
+.not-found {
+  padding: 2em 0;
+  @include flex-prop(center, center, column);
+  height: 100%;
+  img {
+    width: 50%;
+  }
+  h2 {
+    font-family: "Merienda", cursive;
+    padding: 1em 0;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 3em;
+  }
+}
+
+@media (max-width: 1200px) {
+  .books-category {
+    .books-list {
+      min-height: 0;
+    }
+  }
+}
