@@ -30,7 +30,7 @@ const BookDetails = () => {
   // Calculate Rating Distribution
   const reviews = data?.reviews || [];
   const totalReviews = reviews.length;
-  
+
   const ratingCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
   reviews.forEach(review => {
     if (ratingCounts[review.rating] !== undefined) {
@@ -171,6 +171,14 @@ const BookDetails = () => {
         {/* Left Column: Image */}
         <div className="col-lg-4 col-12 mb-4 mb-lg-0">
           <div className="book-image-container">
+            <button
+              className="wishlist-overlay-btn shadow-sm"
+              onClick={handleWishlistToggle}
+              title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+              style={{ position: 'absolute', top: '15px', right: '15px', zIndex: 10, background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }}
+            >
+              <i className={inWishlist ? "fa-solid fa-heart text-danger" : "fa-regular fa-heart text-secondary"} style={{ fontSize: '1.2rem' }}></i>
+            </button>
             <img src={src} className="img-fluid" alt={data.name} />
           </div>
         </div>
@@ -178,10 +186,10 @@ const BookDetails = () => {
         {/* Right Column: Details */}
         <div className="col-lg-8 col-12 book-info">
           <div className="badges">
-            {Array.isArray(data.category) 
+            {Array.isArray(data.category)
               ? data.category.map(cat => (
-                  <span key={cat} className="badge bg-dark text-white text-capitalize me-2">{cat}</span>
-                ))
+                <span key={cat} className="badge bg-dark text-white text-capitalize me-2">{cat}</span>
+              ))
               : <span className="badge bg-dark text-white text-capitalize me-2">{data.category}</span>
             }
             {data.qty > 0 ? (
@@ -233,7 +241,7 @@ const BookDetails = () => {
                   </div>
                 ) : (
                   <button
-                    className="btn-add-cart"
+                    className="btn btn-submit w-100"
                     onClick={handleClick1}
                     disabled={data.qty <= 0}
                   >
@@ -243,19 +251,11 @@ const BookDetails = () => {
               </div>
               <div className="col-12 col-md-6 d-flex align-items-center gap-2">
                 <button
-                  className="btn-buy-now flex-grow-1"
+                  className="btn btn-submit flex-grow-1"
                   onClick={handleClick2}
                   disabled={data.qty <= 0}
                 >
                   <i className="fa-solid fa-bolt"></i> Buy Now
-                </button>
-                <button 
-                  className="btn btn-outline-danger d-flex align-items-center justify-content-center flex-shrink-0 p-0" 
-                  style={{ width: '54px', height: '54px', borderRadius: '50%', fontSize: '1.4rem' }}
-                  onClick={handleWishlistToggle}
-                  title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
-                >
-                  <i className={inWishlist ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
                 </button>
               </div>
             </div>
@@ -337,7 +337,7 @@ const BookDetails = () => {
             <h3 className="section-title text-uppercase fw-bold mb-4" style={{ color: '#2c3e50', fontSize: '1.2rem', letterSpacing: '1px' }}>
               RATINGS <i className="fa-regular fa-star ms-1"></i>
             </h3>
-            
+
             <div className="ratings-container">
               <div className="ratings-left">
                 <div className="average-rating">
@@ -346,7 +346,7 @@ const BookDetails = () => {
                 </div>
                 <p className="verified-buyers">{totalReviews} Verified Buyers</p>
               </div>
-              
+
               <div className="ratings-right">
                 {[5, 4, 3, 2, 1].map(star => (
                   <div className="rating-bar-row" key={star}>

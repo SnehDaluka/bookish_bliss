@@ -14,6 +14,7 @@ export const API_URLS = {
   BOOKS_SEARCH: (name, page = 1) => `/books/search?name=${encodeURIComponent(name)}&page=${page}`,
   BOOK_DETAILS: (id) => `/book/${id}`,
   BOOK_BY_NAME: (name) => `/bookname?name=${encodeURIComponent(name)}`,
+  REQUEST_BOOK: '/books/request',
 
   // Cart
   CART_ITEMS: '/cartitems',

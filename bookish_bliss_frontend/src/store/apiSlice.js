@@ -81,6 +81,13 @@ export const apiSlice = createApi({
       query: (name) => API_URLS.BOOK_BY_NAME(name),
       providesTags: ['Books'],
     }),
+    requestBook: builder.mutation({
+      query: (bookDetails) => ({
+        url: API_URLS.REQUEST_BOOK,
+        method: 'POST',
+        body: bookDetails,
+      }),
+    }),
 
     // Cart Endpoints
     getCartItems: builder.query({
@@ -201,4 +208,5 @@ export const {
   useGetWishlistQuery,
   useAddToWishlistMutation,
   useRemoveFromWishlistMutation,
+  useRequestBookMutation,
 } = apiSlice;

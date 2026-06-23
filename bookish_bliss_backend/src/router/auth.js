@@ -12,6 +12,7 @@ const Messages = require("../models/message");
 const Cart = require("../models/cart");
 const Order = require("../models/order");
 const Wishlist = require("../models/wishlist");
+const RequestedBook = require("../models/requestedBook");
 
 router.get("/profile", authenticate, (req, res) => {
   res.status(200).json(req.rootUser);
@@ -305,6 +306,29 @@ router.get("/books/search", async (req, res) => {
       status: 500,
       message: "Server Error",
     });
+  }
+});
+
+router.post("/books/request", authenticate, async (req, res) => {
+  try {
+    const { title, author, notes } = req.body;
+    
+    if (!title || !author) {
+      return res.status(400).json({ message: "Title and Author are required." });
+    }
+
+    const requestedBook = new RequestedBook({
+      title,
+      author,
+      notes,
+      user: req.userID, // set by the authenticate middleware
+    });
+
+    await requestedBook.save();
+    res.status(201).json({ message: "Book request submitted successfully", requestedBook });
+  } catch (error) {
+    console.error("Error submitting requested book:", error);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 

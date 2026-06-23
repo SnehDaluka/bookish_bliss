@@ -96,7 +96,7 @@ const Cart = (props) => {
               <span>Rs {totalAmount}.00</span>
             </div>
             <button
-              className="btn btn-checkout mt-4 w-100"
+              className="btn btn-submit mt-4 w-100"
               disabled={bookNames.length === 0}
               onClick={handleClick}
             >

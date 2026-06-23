@@ -20,11 +20,12 @@ const Contact = () => {
 
   useEffect(() => {
     if (profileData && state.isLoggedIn) {
-      setData({
+      setData((oldData) => ({
+        ...oldData,
         name: profileData.firstname + " " + profileData.lastname,
         email: profileData.email,
         message: "",
-      });
+      }));
     }
   }, [profileData, state.isLoggedIn]);
 
@@ -38,10 +39,15 @@ const Contact = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      await sendMessageMutation({ ...data }).unwrap();
+      const payload = {
+        ...data,
+        subject: data.subject || "General Inquiry"
+      };
+      await sendMessageMutation(payload).unwrap();
       setData({
         ...data,
         message: "",
+        subject: payload.subject
       });
       Swal.fire({
         icon: 'success',

@@ -234,7 +234,7 @@ const Registration = () => {
           <div className="col-12 mt-4">
             <button
               type="submit"
-              className="btn-register"
+              className="btn btn-submit"
               disabled={load}
             >
               {load ? (

@@ -132,9 +132,20 @@ const Navbar = () => {
                       View all results
                     </div>
                   </>
-                ) : (
-                  <div className="p-3 text-center text-muted">No books found</div>
-                )}
+                  ) : (
+                    <div className="p-3 text-center text-muted">
+                      <p className="mb-2">No books found</p>
+                      {state.isLoggedIn && (
+                        <button 
+                          className="btn btn-sm btn-outline-primary" 
+                          style={{borderColor: '#ff6200', color: '#ff6200'}}
+                          onClick={() => navigate('/request-book')}
+                        >
+                          Request this book
+                        </button>
+                      )}
+                    </div>
+                  )}
               </div>
             )}
           </form>
@@ -234,7 +245,18 @@ const Navbar = () => {
                       </div>
                     </>
                   ) : (
-                    <div className="p-3 text-center text-muted">No books found</div>
+                    <div className="p-3 text-center text-muted">
+                      <p className="mb-2">No books found</p>
+                      {state.isLoggedIn && (
+                        <button 
+                          className="btn btn-sm btn-outline-primary" 
+                          style={{borderColor: '#ff6200', color: '#ff6200'}}
+                          onClick={() => navigate('/request-book')}
+                        >
+                          Request this book
+                        </button>
+                      )}
+                    </div>
                   )}
                 </div>
               )}
@@ -251,6 +273,13 @@ const Navbar = () => {
                   Explore Books
                 </NavLink>
               </li>
+              {state.isLoggedIn && (
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/request-book">
+                    Request Book
+                  </NavLink>
+                </li>
+              )}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/contact">
                   Contact Us

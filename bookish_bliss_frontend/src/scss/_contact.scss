@@ -35,7 +35,8 @@
       color: #7f8c8d;
     }
 
-    .form-control, .form-select {
+    .form-control,
+    .form-select {
       border-radius: 8px;
       border: 1px solid #dee2e6;
       box-shadow: none;
@@ -68,15 +69,15 @@
     font-weight: 700;
     padding: 0.8rem;
     letter-spacing: 0.5px;
-    background: linear-gradient(135deg, #212529, #343a40);
+    background: linear-gradient(135deg, #ff6200, #ff8533);
     color: white;
     border: none;
-    box-shadow: 0 4px 10px rgba(33, 37, 41, 0.3);
+    box-shadow: 0 4px 10px rgba(255, 98, 0, 0.3);
     transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(33, 37, 41, 0.4);
+      box-shadow: 0 6px 15px rgba(255, 98, 0, 0.5);
     }
   }
 }
@@ -100,7 +101,7 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -127,14 +128,14 @@
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
-    
+
     h2 {
       font-size: 2rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
       color: white;
     }
-    
+
     p {
       margin-bottom: 0;
       font-size: 0.95rem;

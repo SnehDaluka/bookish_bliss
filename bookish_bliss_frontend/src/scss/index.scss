@@ -91,18 +91,19 @@
 }
 
 .btn-primary {
-  background-color: var(--bs-primary) !important;
-  border-color: var(--bs-primary) !important;
+  background: linear-gradient(135deg, #ff6200, #ff8533) !important;
+  border: none !important;
   color: #fff !important;
+  box-shadow: 0 4px 10px rgba(255, 98, 0, 0.3) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
 
   &:hover,
   &:focus,
   &:active,
   &.active {
-    background-color: #e65c00 !important;
-    border-color: #e65c00 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 98, 0, 0.5) !important;
     color: #fff !important;
-    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.5) !important;
   }
 }
 
@@ -154,4 +155,24 @@ a,
 .dropdown-item:active {
   background-color: var(--bs-primary) !important;
   color: #fff !important;
+}
+
+// Global submit button (orange gradient)
+.btn-submit {
+  width: 100%;
+  border-radius: 8px;
+  font-weight: 700;
+  padding: 0.8rem;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ff6200, #ff8533);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(255, 98, 0, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 98, 0, 0.5);
+    color: white !important;
+  }
 }

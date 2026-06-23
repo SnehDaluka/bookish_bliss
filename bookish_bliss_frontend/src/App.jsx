@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
@@ -15,10 +17,12 @@ import OrderPlaced from "./components/OrderPlaced";
 import Orders from "./pages/Orders";
 import SingleOrder from "./pages/SingleOrder";
 import Wishlist from "./pages/Wishlist";
+import RequestBook from "./pages/RequestBook";
 
 function App() {
   return (
     <div className="app-container d-flex flex-column min-vh-100">
+      <ToastContainer position="top-right" autoClose={3000} />
       <main className="main-content flex-grow-1 d-flex flex-column">
         <Routes>
           <Route path="/" element={<Header />}>
@@ -35,6 +39,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/request-book" element={<RequestBook />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/cart/orderdetails" element={<OrderDetails />} />
             <Route path="/orderplaced" element={<OrderPlaced />} />
