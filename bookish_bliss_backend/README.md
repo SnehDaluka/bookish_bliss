@@ -17,6 +17,7 @@ Welcome to the backend repository for **Bookish Bliss**, a premium e-commerce bo
 - **Robust Book Catalog API:** Fully featured endpoints to fetch, search, filter by category, and retrieve detailed metadata for the entire bookstore catalog.
 - **Cart & Order Management:** Complex aggregation and validation to handle user carts, calculate order totals, and process final checkouts.
 - **User Profile Management:** Endpoints for users to manage their personal information, update security credentials, and manage a dynamic array of shipping addresses.
+- **Customer Support (Contact/Request Book):** Endpoints to receive user messages and handle custom book requests from authenticated users.
 - **Rating System:** Allows authenticated users to leave ratings and reviews on purchased books.
 
 ## 📦 Getting Started
@@ -54,9 +55,10 @@ Make sure you have Node.js and MongoDB installed (or access to a MongoDB Atlas U
 
 - **Auth (`/api/auth`)**: `/login`, `/register`, `/logout`, `/change-password`
 - **Users (`/api/users`)**: `/profile`, `/addresses`
-- **Books (`/api/books`)**: `/`, `/category/:category`, `/search/:name`, `/:id`
+- **Books (`/api/books`)**: `/`, `/category/:category`, `/search/:name`, `/:id`, `/request`
 - **Cart (`/api/cart`)**: `/`, `/add`, `/remove`, `/clear`
 - **Orders (`/api/orders`)**: `/`, `/place`, `/:id`
+- **Messages (`/api/messages`)**: `/`
 
 ## 🔒 Security Posture
 - All sensitive user data (passwords) is hashed using `bcrypt` before being stored in the database.
