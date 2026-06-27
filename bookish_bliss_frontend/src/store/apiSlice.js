@@ -62,15 +62,15 @@ export const apiSlice = createApi({
 
     // Books Endpoints
     getBooks: builder.query({
-      query: (page = 1) => API_URLS.BOOKS(page),
+      query: ({ page = 1, sort = 'recommended' } = {}) => API_URLS.BOOKS(page, sort),
       providesTags: ['Books'],
     }),
     getBooksByCategory: builder.query({
-      query: ({ category, page = 1 }) => API_URLS.BOOKS_CATEGORY(category, page),
+      query: ({ category, page = 1, sort = 'recommended' }) => API_URLS.BOOKS_CATEGORY(category, page, sort),
       providesTags: ['Books'],
     }),
     searchBooks: builder.query({
-      query: ({ name, page = 1 }) => API_URLS.BOOKS_SEARCH(name, page),
+      query: ({ name, page = 1, sort = 'recommended' }) => API_URLS.BOOKS_SEARCH(name, page, sort),
       providesTags: ['Books'],
     }),
     getBookDetails: builder.query({

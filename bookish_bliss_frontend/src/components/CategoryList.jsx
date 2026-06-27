@@ -20,26 +20,26 @@ const CategoryList = () => {
   ];
 
   return (
-    <>
-      <div className="list-group category-list">
+    <div className="category-list">
+      <NavLink
+        to="/books"
+        end
+        className={({ isActive }) => isActive ? "active" : ""}
+      >
+        <span>All Categories</span>
+        <i className="fa-solid fa-chevron-right small opacity-50"></i>
+      </NavLink>
+      {categories.map((category) => (
         <NavLink
-          to="/books"
-          end
-          className="list-group-item list-group-item-action"
+          key={category}
+          to={`/books/${category}`}
+          className={({ isActive }) => isActive ? "active" : ""}
         >
-          All
+          <span>{category}</span>
+          <i className="fa-solid fa-chevron-right small opacity-50"></i>
         </NavLink>
-        {categories.map((category) => (
-          <NavLink
-            key={category}
-            to={`/books/${category}`}
-            className="list-group-item list-group-item-action"
-          >
-            {category}
-          </NavLink>
-        ))}
-      </div>
-    </>
+      ))}
+    </div>
   );
 };
 

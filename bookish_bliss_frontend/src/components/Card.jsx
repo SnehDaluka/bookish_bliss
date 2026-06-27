@@ -67,6 +67,10 @@ const Card = (props) => {
   };
 
   const handleClick = async (e) => {
+    if (!localStorage.getItem("isLoggedIn")) {
+      navigate("/login");
+      return;
+    }
     try {
       await addToCartMutation({ _id: props.bookData._id }).unwrap();
     } catch (error) {

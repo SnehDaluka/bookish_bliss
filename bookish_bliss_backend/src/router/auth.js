@@ -211,14 +211,26 @@ router.post("/messages", async (req, res) => {
   }
 });
 
+const getSortObject = (sortQuery) => {
+  switch (sortQuery) {
+    case 'price_asc': return { sprice: 1, _id: 1 };
+    case 'price_desc': return { sprice: -1, _id: 1 };
+    case 'rating_desc': return { rating: -1, _id: 1 };
+    case 'name_asc': return { name: 1, _id: 1 };
+    case 'recommended':
+    default: return { _id: -1 }; 
+  }
+};
+
 router.get("/books", async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 25;
+    const limit = parseInt(req.query.limit) || 18;
     const page = parseInt(req.query.page) || 1;
     const skip = (page - 1) * limit;
+    const sortObj = getSortObject(req.query.sort);
 
     const [books, totalCount] = await Promise.all([
-      Books.find({}).limit(limit).skip(skip),
+      Books.find({}).sort(sortObj).limit(limit).skip(skip),
       Books.countDocuments({})
     ]);
 
@@ -239,14 +251,15 @@ router.get("/books", async (req, res) => {
 router.get("/books/category/:name", async (req, res) => {
   try {
     const { name } = req.params;
-    const limit = parseInt(req.query.limit) || 25;
+    const limit = parseInt(req.query.limit) || 18;
     const page = parseInt(req.query.page) || 1;
     const skip = (page - 1) * limit;
+    const sortObj = getSortObject(req.query.sort);
 
     const query = { category: { $regex: new RegExp(`^${name}$`, "i") } };
 
     const [books, totalCount] = await Promise.all([
-      Books.find(query).limit(limit).skip(skip),
+      Books.find(query).sort(sortObj).limit(limit).skip(skip),
       Books.countDocuments(query)
     ]);
 
@@ -267,9 +280,10 @@ router.get("/books/category/:name", async (req, res) => {
 router.get("/books/search", async (req, res) => {
   try {
     const name = req.query.name;
-    const limit = parseInt(req.query.limit) || 25;
+    const limit = parseInt(req.query.limit) || 18;
     const page = parseInt(req.query.page) || 1;
     const skip = (page - 1) * limit;
+    const sortObj = getSortObject(req.query.sort);
 
     const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const regex = new RegExp(escapedName, 'i');
@@ -288,7 +302,7 @@ router.get("/books/search", async (req, res) => {
             }
           }
         },
-        { $sort: { sortPriority: 1, name: 1 } },
+        { $sort: { sortPriority: 1, ...sortObj } },
         { $skip: skip },
         { $limit: limit }
       ]),
@@ -842,7 +856,7 @@ router.get("/books/recommendations", authenticate, async (req, res) => {
       // Sort candidates by score
       recommendedBookIds = Object.keys(candidateBooks)
         .sort((a, b) => candidateBooks[b] - candidateBooks[a])
-        .slice(0, 5);
+        .slice(0, 10);
     }
 
     let recommendations = [];
@@ -853,8 +867,8 @@ router.get("/books/recommendations", authenticate, async (req, res) => {
     }
 
     // --- STEP 3: CATEGORY-AWARE FALLBACK ---
-    if (recommendations.length < 5) {
-      const remainingCount = 5 - recommendations.length;
+    if (recommendations.length < 10) {
+      const remainingCount = 10 - recommendations.length;
       let fallbackBooks = [];
       const excludeIds = [...interactedBookIdsArr, ...recommendedBookIds];
 
@@ -882,7 +896,7 @@ router.get("/books/recommendations", authenticate, async (req, res) => {
         }
       }
 
-      // If STILL less than 5 (e.g. brand new user or no category matches), use generic trending fallback
+      // If STILL less than 10 (e.g. brand new user or no category matches), use generic trending fallback
       if (fallbackBooks.length < remainingCount) {
         const stillRemaining = remainingCount - fallbackBooks.length;
         const fallbackIds = fallbackBooks.map(b => b._id.toString());

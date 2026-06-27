@@ -79,9 +79,14 @@ const BookDetails = () => {
   };
 
   const addToCart = async () => {
+    if (!localStorage.getItem("isLoggedIn")) {
+      navigate("/login");
+      return false;
+    }
     try {
-      if (!data?._id) return;
+      if (!data?._id) return false;
       await addToCartMutation({ _id: data._id }).unwrap();
+      return true;
     } catch (error) {
       if (error.status === 401) {
         navigate("/login");
@@ -95,16 +100,19 @@ const BookDetails = () => {
       } else {
         console.error("Server Error");
       }
+      return false;
     }
   };
 
-  const handleClick1 = () => {
-    addToCart();
+  const handleClick1 = async () => {
+    await addToCart();
   };
 
-  const handleClick2 = () => {
-    addToCart();
-    navigate("/cart");
+  const handleClick2 = async () => {
+    const success = await addToCart();
+    if (success) {
+      navigate("/cart");
+    }
   };
 
   const handleIncrease = async () => {
