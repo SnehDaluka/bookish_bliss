@@ -18,6 +18,7 @@ import Orders from "./pages/Orders";
 import SingleOrder from "./pages/SingleOrder";
 import Wishlist from "./pages/Wishlist";
 import RequestBook from "./pages/RequestBook";
+import RecommendBooks from "./pages/RecommendBooks";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/register" element={<Registration />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/request-book" element={<RequestBook />} />
+            <Route path="/recommendations" element={<RecommendBooks />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/cart/orderdetails" element={<OrderDetails />} />
             <Route path="/orderplaced" element={<OrderPlaced />} />

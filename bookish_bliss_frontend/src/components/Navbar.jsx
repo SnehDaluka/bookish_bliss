@@ -274,11 +274,18 @@ const Navbar = () => {
                 </NavLink>
               </li>
               {state.isLoggedIn && (
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/request-book">
-                    Request Book
-                  </NavLink>
-                </li>
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/request-book">
+                      Request Book
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/recommendations">
+                      <i className="fa-solid fa-wand-magic-sparkles me-1"></i> For You
+                    </NavLink>
+                  </li>
+                </>
               )}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/contact">
