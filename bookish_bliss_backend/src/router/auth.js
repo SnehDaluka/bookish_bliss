@@ -490,14 +490,15 @@ router.delete("/cart/all", authenticate, async (req, res) => {
   }
 });
 
-router.post("/logout", async (req, res) => {
+router.post("/logout", authenticate, async (req, res) => {
   try {
-    const { email, token } = req.body;
-    await Customer.findOneAndUpdate(
-      { email, email },
-      { $pull: { tokens: { token: token } } },
-      { safe: true, multi: false }
-    );
+    req.rootUser.tokens = req.rootUser.tokens.filter((tokenObj) => {
+      return tokenObj.token !== req.token;
+    });
+    
+    res.clearCookie("token", { path: "/" });
+    await req.rootUser.save();
+    
     res.status(200).json({ message: "Logout Successful" });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });

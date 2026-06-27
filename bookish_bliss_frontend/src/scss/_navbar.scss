@@ -237,11 +237,17 @@
         color: $nav-active;
       }
 
+      &.active {
+        background-color: rgba(255, 98, 0, 0.1) !important;
+        color: #ff6200 !important;
+        font-weight: 600;
+      }
+
       &.text-danger {
         color: #d63031;
 
         &:hover {
-          background-color: #ffeaa7; // Just a subtle highlight
+          background-color: #f1f2f6; // subtle grey highlight
           color: #d63031;
         }
       }
