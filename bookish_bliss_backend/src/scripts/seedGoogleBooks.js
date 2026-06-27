@@ -21,25 +21,25 @@ const seedOpenLibraryBooks = async () => {
 
     // 2. Fetch books for each category
     for (const category of CATEGORIES) {
-      console.log(`\nFetching ${category} books from OpenLibrary API...`);
-      const url = `https://openlibrary.org/search.json?subject=${category.toLowerCase()}&limit=${MAX_RESULTS}`;
-      
-      let data;
-      try {
-        const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
-        data = await response.json();
-      } catch (fetchError) {
-        console.error(`Failed to fetch ${category}:`, fetchError.message);
-        continue;
-      }
-
-      if (!data || !data.docs || data.docs.length === 0) {
-        console.log(`No items found for category: ${category}`);
-        if (data && data.error) console.log("API Error:", data.error.message);
-        continue;
-      }
-
       let categoryCount = 0;
+      console.log(`\nFetching ${category} books from OpenLibrary API...`);
+
+      // Loop through 5 pages of 100 results (500 books per category candidate)
+      for (let offset = 0; offset < 500; offset += 100) {
+        const url = `https://openlibrary.org/search.json?subject=${category.toLowerCase()}&limit=${MAX_RESULTS}&offset=${offset}`;
+        
+        let data;
+        try {
+          const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
+          data = await response.json();
+        } catch (fetchError) {
+          console.error(`Failed to fetch ${category} at offset ${offset}:`, fetchError.message);
+          continue;
+        }
+
+        if (!data || !data.docs || data.docs.length === 0) {
+          break; // No more books for this category
+        }
 
       // 3. Process and map each book
       for (const doc of data.docs) {
@@ -101,11 +101,12 @@ const seedOpenLibraryBooks = async () => {
             console.error(`Error saving book ${doc.title}:`, saveError);
           }
         }
-      }
+        }
+      } // End of offset loop
 
       console.log(`Successfully imported ${categoryCount} new books for ${category}.`);
       
-      // Sleep for 2 seconds to avoid rate limiting / timeouts
+      // Sleep to avoid rate limiting
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
 

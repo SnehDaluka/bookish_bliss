@@ -737,4 +737,172 @@ router.delete("/wishlist/remove/:id", authenticate, async (req, res) => {
   }
 });
 
+// Get Personalized Recommendations (Advanced Collaborative Filtering)
+router.get("/books/recommendations", authenticate, async (req, res) => {
+  try {
+    const userId = req.rootUser._id;
+    const userIdStr = userId.toString();
+
+    // --- STEP 1: GATHER IMPLICIT FEEDBACK ---
+    // Fetch user interactions: Orders (Weight 3), Cart (Weight 2), Wishlist (Weight 1)
+    const [userOrders, userCart, userWishlist] = await Promise.all([
+      Order.find({ user: userId }).select('items.bookId').lean(),
+      Cart.findOne({ user: userId }).select('items.book').lean(),
+      Wishlist.findOne({ user: userId }).select('items.book').lean()
+    ]);
+
+    const currentUserInteractions = {}; // { bookIdStr: weight }
+    const interactedBookIdsSet = new Set();
+
+    if (userWishlist && userWishlist.items) {
+      userWishlist.items.forEach(item => {
+        if (item.book) {
+          currentUserInteractions[item.book.toString()] = 1;
+          interactedBookIdsSet.add(item.book.toString());
+        }
+      });
+    }
+
+    if (userCart && userCart.items) {
+      userCart.items.forEach(item => {
+        if (item.book) {
+          currentUserInteractions[item.book.toString()] = 2; // Overrides wishlist
+          interactedBookIdsSet.add(item.book.toString());
+        }
+      });
+    }
+
+    userOrders.forEach(order => {
+      order.items.forEach(item => {
+        if (item.bookId) {
+          currentUserInteractions[item.bookId.toString()] = 3; // Highest weight
+          interactedBookIdsSet.add(item.bookId.toString());
+        }
+      });
+    });
+
+    const interactedBookIdsArr = Array.from(interactedBookIdsSet);
+    let recommendedBookIds = [];
+
+    // --- STEP 2: COLLABORATIVE FILTERING (JACCARD SIMILARITY) ---
+    if (interactedBookIdsArr.length > 0) {
+      // Find ALL other users who have interacted with ANY of these books
+      const [otherOrders, otherCarts, otherWishlists] = await Promise.all([
+        Order.find({ user: { $ne: userId }, "items.bookId": { $in: interactedBookIdsArr } }).select('user items.bookId').lean(),
+        Cart.find({ user: { $ne: userId }, "items.book": { $in: interactedBookIdsArr } }).select('user items.book').lean(),
+        Wishlist.find({ user: { $ne: userId }, "items.book": { $in: interactedBookIdsArr } }).select('user items.book').lean()
+      ]);
+
+      // Build interaction profiles for other users
+      const otherUsersProfiles = {}; // { otherUserIdStr: { bookIdStr: weight } }
+
+      const addOtherInteraction = (otherUserId, bookId, weight) => {
+        if (!otherUserId || !bookId) return;
+        const uid = otherUserId.toString();
+        const bid = bookId.toString();
+        if (!otherUsersProfiles[uid]) otherUsersProfiles[uid] = {};
+        // Keep highest weight
+        if (!otherUsersProfiles[uid][bid] || otherUsersProfiles[uid][bid] < weight) {
+          otherUsersProfiles[uid][bid] = weight;
+        }
+      };
+
+      otherWishlists.forEach(w => w.items.forEach(i => addOtherInteraction(w.user, i.book, 1)));
+      otherCarts.forEach(c => c.items.forEach(i => addOtherInteraction(c.user, i.book, 2)));
+      otherOrders.forEach(o => o.items.forEach(i => addOtherInteraction(o.user, i.bookId, 3)));
+
+      // Calculate Jaccard Similarity and Score Candidates
+      const candidateBooks = {}; // { bookIdStr: totalScore }
+
+      for (const [otherUserIdStr, otherProfile] of Object.entries(otherUsersProfiles)) {
+        const otherBookIds = Object.keys(otherProfile);
+        
+        // Jaccard Calculation
+        let intersection = 0;
+        otherBookIds.forEach(bid => {
+          if (interactedBookIdsSet.has(bid)) intersection++;
+        });
+
+        const union = new Set([...interactedBookIdsArr, ...otherBookIds]).size;
+        const similarityScore = intersection / union;
+
+        // If similar, add their other books to candidates
+        if (similarityScore > 0) {
+          otherBookIds.forEach(bid => {
+            if (!interactedBookIdsSet.has(bid)) {
+              // Score = Similarity * Weight of interaction
+              const score = similarityScore * otherProfile[bid];
+              candidateBooks[bid] = (candidateBooks[bid] || 0) + score;
+            }
+          });
+        }
+      }
+
+      // Sort candidates by score
+      recommendedBookIds = Object.keys(candidateBooks)
+        .sort((a, b) => candidateBooks[b] - candidateBooks[a])
+        .slice(0, 5);
+    }
+
+    let recommendations = [];
+
+    // Fetch actual book documents for the ML recommendations
+    if (recommendedBookIds.length > 0) {
+      recommendations = await Books.find({ _id: { $in: recommendedBookIds } });
+    }
+
+    // --- STEP 3: CATEGORY-AWARE FALLBACK ---
+    if (recommendations.length < 5) {
+      const remainingCount = 5 - recommendations.length;
+      let fallbackBooks = [];
+      const excludeIds = [...interactedBookIdsArr, ...recommendedBookIds];
+
+      if (interactedBookIdsArr.length > 0) {
+        // Find user's favorite categories
+        const interactedBooks = await Books.find({ _id: { $in: interactedBookIdsArr } }).select('category').lean();
+        const categoryFreq = {};
+        interactedBooks.forEach(b => {
+          if (b.category) {
+            b.category.forEach(c => {
+              categoryFreq[c] = (categoryFreq[c] || 0) + 1;
+            });
+          }
+        });
+
+        const topCategories = Object.keys(categoryFreq).sort((a, b) => categoryFreq[b] - categoryFreq[a]).slice(0, 2);
+
+        if (topCategories.length > 0) {
+          fallbackBooks = await Books.find({ 
+            category: { $in: topCategories },
+            _id: { $nin: excludeIds }
+          })
+          .sort({ rating: -1 })
+          .limit(remainingCount);
+        }
+      }
+
+      // If STILL less than 5 (e.g. brand new user or no category matches), use generic trending fallback
+      if (fallbackBooks.length < remainingCount) {
+        const stillRemaining = remainingCount - fallbackBooks.length;
+        const fallbackIds = fallbackBooks.map(b => b._id.toString());
+        const totalExcludeIds = [...excludeIds, ...fallbackIds];
+
+        const genericFallback = await Books.find({ _id: { $nin: totalExcludeIds } })
+          .sort({ rating: -1, sprice: 1 }) 
+          .limit(stillRemaining);
+        
+        fallbackBooks = [...fallbackBooks, ...genericFallback];
+      }
+
+      recommendations = [...recommendations, ...fallbackBooks];
+    }
+
+    res.status(200).json(recommendations);
+
+  } catch (error) {
+    console.error("Advanced Recommendations Error:", error);
+    res.status(500).json({ message: "Failed to fetch recommendations" });
+  }
+});
+
 module.exports = router;
