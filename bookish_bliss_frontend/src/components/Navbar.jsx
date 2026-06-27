@@ -4,6 +4,7 @@ import imgsrc from "../images/bookish-bliss-logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/slice";
 import { useGetProfileQuery, useLogoutMutation, useGetCartItemsQuery, useGetWishlistQuery, useSearchBooksQuery } from "../store/apiSlice";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [data, setData] = useState("");
@@ -37,13 +38,34 @@ const Navbar = () => {
   );
 
   const logOutUser = async () => {
-    try {
-      await logoutMutation().unwrap();
-      dispatch(logout());
-      localStorage.removeItem("isLoggedIn");
-      navigate("/");
-    } catch (error) {
-      console.error("Server Error");
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to log out of your account.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ff6200',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await logoutMutation().unwrap();
+        dispatch(logout());
+        localStorage.removeItem("isLoggedIn");
+        navigate("/");
+        
+        Swal.fire({
+          title: 'Logged Out',
+          text: 'You have been successfully logged out.',
+          icon: 'success',
+          confirmButtonColor: '#ff6200',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      } catch (error) {
+        console.error("Server Error");
+      }
     }
   };
 
