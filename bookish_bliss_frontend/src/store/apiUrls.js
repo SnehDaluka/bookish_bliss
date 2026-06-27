@@ -9,9 +9,9 @@ export const API_URLS = {
   MESSAGES: '/messages',
 
   // Books
-  BOOKS: (page = 1) => `/books?page=${page}`,
-  BOOKS_CATEGORY: (category, page = 1) => `/books/category/${encodeURIComponent(category)}?page=${page}`,
-  BOOKS_SEARCH: (name, page = 1) => `/books/search?name=${encodeURIComponent(name)}&page=${page}`,
+  BOOKS: (page = 1, sort = 'recommended') => `/books?page=${page}&sort=${sort}`,
+  BOOKS_CATEGORY: (category, page = 1, sort = 'recommended') => `/books/category/${encodeURIComponent(category)}?page=${page}&sort=${sort}`,
+  BOOKS_SEARCH: (name, page = 1, sort = 'recommended') => `/books/search?name=${encodeURIComponent(name)}&page=${page}&sort=${sort}`,
   BOOK_DETAILS: (id) => `/book/${id}`,
   BOOK_BY_NAME: (name) => `/bookname?name=${encodeURIComponent(name)}`,
   REQUEST_BOOK: '/books/request',

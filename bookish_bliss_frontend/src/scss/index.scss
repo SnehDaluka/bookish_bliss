@@ -153,8 +153,9 @@ a,
 // Global Dropdown Active State
 .dropdown-item.active,
 .dropdown-item:active {
-  background-color: var(--bs-primary) !important;
-  color: #fff !important;
+  background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+  color: var(--bs-primary) !important;
+  font-weight: 600;
 }
 
 // Global submit button (orange gradient)

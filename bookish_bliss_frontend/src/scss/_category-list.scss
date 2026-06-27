@@ -1,23 +1,65 @@
-.category-list {
-  width: 100%;
-  border-radius: 0;
-  .active {
-    background-color: $list-select !important;
-    color: $nav-active !important;
-    font-weight: 600;
+// Modern Sidebar List
+.category-sidebar {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem;
+
+  .sidebar-title {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: #2d3436;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #f1f2f6;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
-  a {
-    border: none;
-    &:hover {
-      background-color: $list-select;
+
+  .category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    
+    a {
+      text-decoration: none;
+      color: #636e72;
+      font-weight: 600;
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:hover {
+        background: #f8f9fa;
+        color: #ff6200;
+        transform: translateX(3px);
+      }
+
+      &.active {
+        background: rgba(255, 98, 0, 0.1);
+        color: #ff6200;
+        font-weight: 700;
+      }
     }
   }
 }
 
-@media (max-width: 992px) {
-  .category-list {
-    a {
-      border-right: 0;
+// Offcanvas tweaks for mobile
+.offcanvas-lg {
+  @media (max-width: 991px) {
+    .offcanvas-body {
+      padding: 0; 
+    }
+    
+    .category-sidebar {
+      box-shadow: none;
+      border-radius: 0;
+      padding: 1.5rem;
     }
   }
 }
