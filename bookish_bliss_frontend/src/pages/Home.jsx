@@ -51,7 +51,7 @@ const Home = () => {
               <div className="trust-item bg-white p-4 rounded-4 shadow-sm h-100 transition-hover">
                 <div className="trust-icon text-primary mb-3"><i className="fa-solid fa-truck-fast fa-2x"></i></div>
                 <h5 className="fw-bold mb-2 text-dark">Free Shipping</h5>
-                <p className="text-muted small mb-0">On all orders over $50</p>
+                <p className="text-muted small mb-0">On all orders over Rs 500</p>
               </div>
             </div>
             <div className="col-md-4">
